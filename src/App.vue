@@ -11,11 +11,7 @@
       />
     </form>
 
-    <div ID="weatherdesc">
-            <p>{{ weather.temperature }}</p>
-          </div>
-
-          <div class="weather-container widget" :class="isDay ? 'day' : 'night'">
+    <div class="weather-container widget" :class="isDay ? 'day' : 'night'">
       <div class="weather-box" v-if="searchResult">
         <div ID="cloudcontainer">
           <div ID="cloudmain">
@@ -28,22 +24,35 @@
           <div ID="weatherdesc">
             <p>{{ weather.temperature }}</p>
           </div>
-          <div ID="weatherdesc2">
-            <h2 ID="name">{{ weather.cityName }}</h2>
-            <p ID="datedesc"> {{ weather.description }} </p>
 
-            <p class="weathmore">low : <span>{{ weather.lowTemp }}</span>°C</p>
-            <p class="weathmore">max : <span>{{ weather.highTemp }}</span> °C</p>
-            <p class="feels">feel : <span>{{ weather.feelsLike }}</span></p>
+          <div ID="weatherdesc2">
+            <ul>
+              <h2 ID="name">{{ weather.cityName }}</h2>
+              <li ID="datedesc">{{ weather.description }}</li>
+
+              <li class="weathmore">
+                low : <span>{{ weather.lowTemp }}</span
+                >°C
+              </li>
+              <li class="weathmore">
+                max : <span>{{ weather.highTemp }}</span> °C
+              </li>
+              <li class="feels">
+                feel : <span>{{ weather.feelsLike }}</span>
+              </li>
+              <li class="winds">
+                vent : <span>{{ wind.speed }}</span> km/h
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
       <!-- ne pas afficher la météo si la ville n'est pas trouvée -->
-      <div class="weather-box" v-else>City Not found</div>
+      <div class="weather-box" v-else>
+        <p>City not found</p>
+      </div>
     </div>
-
-    
   </div>
 </template>
 
@@ -52,7 +61,6 @@ export default {
   name: "App",
   data() {
     return {
-      
       isDay: true,
       searchResult: false,
       citySearch: "",
@@ -65,6 +73,9 @@ export default {
         highTemp: 15,
         feelsLike: "Death",
         humidity: 55,
+      },
+      wind: {
+        speed: 4,
       },
     };
   },
@@ -87,6 +98,7 @@ export default {
         this.weather.highTemp = Math.round(data.main.temp_max);
         this.weather.feelsLike = Math.round(data.main.feels_like);
         this.weather.humidity = Math.round(data.main.humidity);
+        this.wind.speed = Math.round(data.wind.speed);
 
         this.searchResult = true;
 
@@ -128,7 +140,7 @@ export default {
 }
 
 input {
-  border: 1px solid red;
+  border: 2px solid rgb(209, 196, 15);
   border-radius: 10px;
   margin-top: 5px;
   padding: 5px;
@@ -142,7 +154,6 @@ body {
 span {
   color: rgb(42, 158, 158);
   font-weight: 600;
-  
 }
 
 .weather-container {
@@ -190,14 +201,14 @@ span {
 }
 
 #weatherdesc2 {
-  height: 100px;
   font-size: 0.9em;
   color: #0b71bf;
   background-color: transparent;
   border: 0px solid red;
   width: 50%;
   margin-top: 10px;
-
+  padding: 2px;
+  height: auto;
 }
 
 p {
@@ -299,6 +310,11 @@ p {
 
 .night {
   background-color: midnightblue;
+  color: midnightblue;
 }
 
+li {
+  list-style: none;
+  text-decoration: none;
+}
 </style>
