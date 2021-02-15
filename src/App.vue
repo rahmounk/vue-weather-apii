@@ -49,7 +49,7 @@
       </div>
 
       <!-- ne pas afficher la météo si la ville n'est pas trouvée -->
-      <div class="weather-box" v-else>
+      <div class="weather-box weather-box-css" v-else>
         <p>City not found</p>
       </div>
     </div>
@@ -308,13 +308,16 @@ p {
   border-radius: 50%;
 }
 
-.night {
-  background-color: midnightblue;
-  color: midnightblue;
-}
-
 li {
   list-style: none;
   text-decoration: none;
 }
+
+.weather-box-css {
+  padding: 15px;
+  width: 15vw;
+  text-align: center;
+}
+
+
 </style>
